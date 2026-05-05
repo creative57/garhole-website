@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gar Hole — Website Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber:       rgba(210,175,90,1);
+  --amber-dim:   rgba(200,165,80,0.75);
+  --amber-ghost: rgba(185,150,65,0.40);
+  --gold-line:   rgba(180,140,60,0.25);
+  --text-hi:     rgba(225,200,145,0.95);
+  --text-body:   rgba(195,175,135,0.82);
+  --text-muted:  rgba(165,148,112,0.62);
+  --ink:         rgba(5,3,2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%;
+  background:#070504;
+  font-family:'Libre Baskerville', Georgia, serif;
+  overflow:hidden;
+}
+
+/* ── DECK ─────────────────────────────────── */
+.deck { width:100%; height:100%; position:relative; }
+
+.slide {
+  position:absolute; inset:0;
+  display:none; align-items:center; justify-content:center;
+}
+.slide.active { display:flex; }
+
+/* ── COVER ────────────────────────────────── */
+#s0 { background:#070504; }
+#s0 img.bg {
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover;
+}
+#s0 canvas {
+  position:absolute; inset:0;
+  width:100%; height:100%; pointer-events:none;
+}
+.cover-tag {
+  position:absolute; bottom:0; left:0; right:0; height:28%;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
+.cover-tag p {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:clamp(1rem,2vw,1.75rem);
+  color:rgba(210,190,140,0.85);
+  letter-spacing:0.14em;
+  text-shadow:0 0 40px var(--ink), 0 2px 8px var(--ink);
+}
+
+/* ── CONTENT SLIDES ───────────────────────── */
+.cs {
+  background:#0d0806;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:6vh 8vw;
+  position:relative; overflow:hidden;
+}
+/* plaster noise */
+.cs::before {
+  content:''; position:absolute; inset:0; z-index:0; opacity:0.055;
+  background-image:
+    radial-gradient(ellipse 75% 55% at 50% 38%, rgba(55,32,8,0.20) 0%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.70' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:auto, 280px 280px;
+}
+/* edge vignette */
+.cs::after {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    linear-gradient(90deg,  rgba(7,5,4,0.52) 0%, transparent 18%),
+    linear-gradient(270deg, rgba(7,5,4,0.52) 0%, transparent 18%),
+    linear-gradient(180deg, rgba(7,5,4,0.38) 0%, transparent 14%),
+    linear-gradient(0deg,   rgba(7,5,4,0.55) 0%, transparent 16%);
+}
+.inner {
+  position:relative; z-index:1;
+  width:100%; max-width:1080px; margin:0 auto;
+}
+
+/* ── TYPE ─────────────────────────────────── */
+.num {
+  font-size:0.68rem; letter-spacing:0.32em;
+  color:var(--amber-ghost); text-transform:uppercase;
+  margin-bottom:2.8vh;
+}
+.ttl {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(1.5rem,3vw,2.6rem);
+  color:var(--text-hi); font-style:italic;
+  letter-spacing:0.04em; line-height:1.15;
+  margin-bottom:3.2vh;
+  border-bottom:1px solid var(--gold-line); padding-bottom:1.8vh;
+}
+.body {
+  font-size:clamp(0.80rem,1.45vw,1.22rem);
+  color:var(--text-body); line-height:1.82;
+}
+.body p { margin-bottom:2vh; }
+.body p:last-child { margin-bottom:0; }
+.pull {
+  border-left:2px solid var(--amber-ghost);
+  padding-left:1.8vw; margin:2.2vh 0;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:clamp(0.90rem,1.65vw,1.38rem);
+  color:rgba(215,192,130,0.90); line-height:1.62;
+}
+
+/* ── 3-COL FEATURES ───────────────────────── */
+.grid3 {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:2.8vw; margin-top:2.8vh;
+}
+.feat { border-top:1px solid var(--gold-line); padding-top:1.8vh; }
+.feat-lbl {
+  font-size:clamp(0.68rem,1.0vw,0.88rem);
+  letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--amber-dim); margin-bottom:1vh;
+}
+.feat-txt {
+  font-size:clamp(0.73rem,1.2vw,1.02rem);
+  color:rgba(185,168,135,0.78); line-height:1.66;
+}
+
+/* ── 4-COL TIMELINE ───────────────────────── */
+.grid4 {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:2vw; margin-top:2vh;
+}
+.wk { border-top:2px solid rgba(200,170,90,0.55); padding-top:1.8vh; }
+.wk-ttl {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:clamp(0.82rem,1.25vw,1.05rem);
+  color:rgba(220,195,130,0.88); margin-bottom:1vh;
+}
+
+/* ── CLOSE SLIDE ──────────────────────────── */
+#s7 { background:#0d0806; }
+#s7 .inner {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:100vh; text-align:center;
+}
+.cl { display:flex; flex-direction:column; align-items:center; gap:2.2vh; }
+.cl-ln {
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size:clamp(1.05rem,2.2vw,2.0rem);
+  color:rgba(218,194,132,0.88); letter-spacing:0.06em; line-height:1.3;
+}
+.cl-ln.big {
+  font-size:clamp(1.45rem,3.0vw,2.7rem);
+  color:rgba(235,210,145,0.98); font-weight:600;
+}
+.cl-rule { width:55px; height:1px; background:rgba(180,140,60,0.32); }
+
+/* ── NAV ──────────────────────────────────── */
+.nav {
+  position:fixed; bottom:2.8%; left:0; right:0;
+  display:flex; align-items:center; justify-content:center;
+  gap:0.9vw; z-index:200; pointer-events:none;
+}
+.dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(180,150,80,0.22);
+  transition:background 0.3s;
+  pointer-events:all; cursor:pointer;
+}
+.dot.on { background:rgba(205,172,88,0.78); }
+.arr {
+  background:transparent; border:none;
+  color:rgba(255,255,255,0.80); font-size:1.05rem;
+  cursor:pointer; pointer-events:all;
+  padding:0 0.55vw; transition:color 0.18s;
+  display:flex; align-items:center; user-select:none;
+}
+.arr:hover { color:#fff; }
+.arr:disabled { opacity:0.16; cursor:default; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════════
+     S0 — COVER
+═══════════════════════════════════════════════ -->
+<div class="slide active" id="s0">
+  <img class="bg" src="https://raw.githubusercontent.com/creative57/garhole/main/garhole-sign2.png" alt="GarHole Sign">
+  <canvas id="bc"></canvas>
+  <div class="cover-tag">
+    <p>You built something real. Let&rsquo;s put it online.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S1 — TRUST ANCHOR
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s1" style="overflow:hidden;">
+  <img src="https://raw.githubusercontent.com/creative57/garhole/main/livemusic-garhole-bg.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.22;" alt="">
+  <div style="position:absolute;inset:0;background:rgba(5,3,2,0.80);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;padding:0 6vw;">
+    <div style="text-align:center;max-width:680px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,1.85vw,1.55rem);color:rgba(192,168,115,0.70);letter-spacing:0.10em;line-height:2.1;margin-bottom:3vh;">You built something real.</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,1.85vw,1.55rem);color:rgba(208,182,125,0.80);letter-spacing:0.10em;line-height:2.1;margin-bottom:3vh;">This is what it looks like online.</p>
+      <div style="width:48px;height:1px;background:rgba(180,140,60,0.28);margin:0 auto 3vh;"></div>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.45rem,3.1vw,2.7rem);color:rgba(235,210,145,0.97);letter-spacing:0.06em;line-height:1.25;">It looks like the place.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S2 — WHAT THE GAR HOLE IS
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s2" style="overflow:hidden;">
+  <img src="https://raw.githubusercontent.com/creative57/garhole/main/pickingCircle3-bg.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;" alt="Pickin Circle">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,3,2,0.88)0%,rgba(5,3,2,0.42)48%,rgba(5,3,2,0.06)100%),linear-gradient(0deg,rgba(5,3,2,0.32)0%,transparent 38%),linear-gradient(180deg,rgba(5,3,2,0.22)0%,transparent 22%);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;padding:6vh 8vw;z-index:2;">
+    <div style="max-width:510px;">
+      <div class="num">02 / 07</div>
+      <div class="ttl">What The Gar Hole Actually Is</div>
+      <div class="body">
+        <p>A century-old bank building in Westminster, Texas. Bonnie and Clyde robbed it. The vault is still there. You turned a biker bar into a guitar culture community &mdash; weekly Pickin&rsquo; Circles where educators, cowboys, doctors, bikers, and hippies sit in a circle and play whatever they&rsquo;ve been working on. No wrong notes. No wrong people.</p>
+        <div class="pull">D Magazine called it one of the best roadhouses in North Texas. You call it a frontier Cheers.<br>Your own tagline: <em>&ldquo;It&rsquo;s not really a place. It&rsquo;s a state of mind.&rdquo;</em></div>
+        <p>None of that is on the website. A GoDaddy template cannot hold what you&rsquo;ve built.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S3 — THE GAP
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s3" style="overflow:hidden;">
+  <img src="https://raw.githubusercontent.com/creative57/garhole/main/livemusic-garhole-bg.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Stage">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,3,2,0.93)0%,rgba(5,3,2,0.72)40%,rgba(5,3,2,0.28)100%),linear-gradient(0deg,rgba(5,3,2,0.62)0%,transparent 44%),linear-gradient(180deg,rgba(5,3,2,0.52)0%,transparent 28%);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;padding:6vh 8vw;z-index:2;">
+    <div style="max-width:570px;">
+      <div class="num">03 / 07</div>
+      <div class="ttl">The Gar Hole is one of the most authentic music venues in North Texas.</div>
+      <div class="body">
+        <div class="pull">Its website is a GoDaddy template with a broken tickets page and a PDF calendar.<br>That gap is costing you every weekend.</div>
+        <p>The first thing a visitor reads on garhole.net today is: <em>&ldquo;PLEASE SELECT &lsquo;VIEW ALL PRODUCTS&rsquo; TAB AT BOTTOM OF PAGE TO SEE ALL Featured SHOWS.&rdquo;</em> There is no tab. The tickets page renders blank. The music calendar is a PDF. The bottom of every page reads: Powered by GoDaddy.</p>
+        <p>Every person who hits that blank tickets page and leaves is a lost cover charge, a lost bar tab, a lost regular.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S4 — THE APPROACH
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s4" style="overflow:hidden;">
+  <img src="https://raw.githubusercontent.com/creative57/garhole/main/enter-garhole-bg.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Doorway">
+  <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,3,2,0.93)0%,rgba(5,3,2,0.65)44%,rgba(5,3,2,0.09)100%),linear-gradient(0deg,rgba(5,3,2,0.52)0%,transparent 38%),linear-gradient(180deg,rgba(5,3,2,0.42)0%,transparent 24%);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:6vh 8vw;z-index:2;">
+    <div style="max-width:510px;">
+      <div class="num">04 / 07</div>
+      <div class="ttl">The Approach</div>
+      <div class="body">
+        <div class="pull">The website should feel like walking in the door.</div>
+        <p>Every design decision pulled from the real place. Colors from actual interior photographs. The motion from the real signs on the real walls &mdash; bulbs that breathe, neon that flickers because it&rsquo;s old. The result is a site that people who&rsquo;ve never been feel compelled to visit. And people who go every Wednesday feel proud to share.</p>
+        <p>The Anna and Collin County area is growing faster than almost anywhere in Texas. New people arriving every month who have never heard of Westminster. They are looking for exactly what the Gar Hole is. Right now when they search, they find a blank page.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S5 — WHAT THIS SITE DOES
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s5" style="overflow:hidden;">
+  <img src="https://raw.githubusercontent.com/creative57/garhole/main/shiner%20sign%20-%20tickets.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Signs">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,3,2,0.91)0%,rgba(5,3,2,0.58)42%,rgba(5,3,2,0.07)100%),linear-gradient(0deg,rgba(5,3,2,0.78)0%,rgba(5,3,2,0.18)52%,transparent 100%),linear-gradient(180deg,rgba(5,3,2,0.48)0%,transparent 28%);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:6vh 8vw;z-index:2;">
+    <div style="width:100%;">
+      <div class="num">05 / 07</div>
+      <div class="ttl">What This Site Does</div>
+      <div class="grid3">
+        <div class="feat">
+          <div class="feat-lbl">It tells people who you are</div>
+          <div class="feat-txt">Puts them inside the room before they&rsquo;ve left their couch. The difference between a destination someone drives 40 minutes to reach and one they skip for a closer option.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-lbl">It sells tickets</div>
+          <div class="feat-txt">The marquee sign is the live event calendar. You update a band name from your phone. The sign changes on the website. Customers click, buy the ticket, show up Friday. No PDF. No blank page. No lost revenue.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-lbl">It works for you</div>
+          <div class="feat-txt">Day, band name, save. Done. No GoDaddy dashboard. No re-uploading PDFs. You run a place &mdash; the website runs itself.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S6 — TIMING
+═══════════════════════════════════════════════ -->
+<div class="slide cs" id="s6">
+  <div class="inner">
+    <div class="num">06 / 07</div>
+    <div class="ttl">From Handshake to Live &mdash; 4 Weeks</div>
+    <div class="body">
+      <div class="grid4">
+        <div class="wk">
+          <div class="feat-lbl">Week 1</div>
+          <div class="wk-ttl">The Room</div>
+          <div class="feat-txt">Base environment built. Plaster walls, ceiling, string lights, color palette locked. The room exists before anything lives in it. You review and approve before we proceed.</div>
+        </div>
+        <div class="wk">
+          <div class="feat-lbl">Week 2</div>
+          <div class="wk-ttl">The Sign</div>
+          <div class="feat-txt">Marquee sign component built and animated. Events database wired. Admin panel live &mdash; update band names from your phone. Ticketing link connected.</div>
+        </div>
+        <div class="wk">
+          <div class="feat-lbl">Week 3</div>
+          <div class="wk-ttl">The Rooms Fill In</div>
+          <div class="feat-txt">All 5 pages built. Events, Menu, About, Gallery. Navigation as movement through space. The vault in the hallway. Everything in its place.</div>
+        </div>
+        <div class="wk">
+          <div class="feat-lbl">Week 4</div>
+          <div class="wk-ttl">The Doors Open</div>
+          <div class="feat-txt">Mobile testing, your walkthrough and sign-off. Hosting deployment. The GoDaddy site retires. One update from your phone &mdash; and the sign changes.</div>
+        </div>
+      </div>
+      <div class="pull" style="margin-top:3.8vh;">Every phase ends with your approval before the next one starts.<br>You see it before it&rsquo;s built. You confirm it before we move.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     S7 — THE CLOSE
+═══════════════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="inner">
+    <div class="cl">
+      <div class="cl-ln">You built the Gar Hole by making something real</div>
+      <div class="cl-ln">in a world full of things that aren&rsquo;t.</div>
+      <div class="cl-rule"></div>
+      <div class="cl-ln">This website does the same thing.</div>
+      <div class="cl-rule"></div>
+      <div class="cl-ln">It doesn&rsquo;t look like a website about a place.</div>
+      <div class="cl-ln big">It looks like the place.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<nav class="nav" id="nw">
+  <button class="arr" id="pv" onclick="go(-1)" disabled>&#8592;</button>
+  <div id="nd" style="display:flex;align-items:center;gap:1.4vw;"></div>
+  <button class="arr" id="nx" onclick="go(1)">&#8594;</button>
+</nav>
+
+<script>
+const SL=document.querySelectorAll('.slide'),ND=document.getElementById('nd'),PV=document.getElementById('pv'),NX=document.getElementById('nx');
+let C=0;
+SL.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>gt(i);ND.appendChild(d);});
+function gt(n){SL[C].classList.remove('active');ND.children[C].classList.remove('on');C=Math.max(0,Math.min(n,SL.length-1));SL[C].classList.add('active');ND.children[C].classList.add('on');PV.disabled=C===0;NX.disabled=C===SL.length-1;}
+function go(d){gt(C+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+let TX=0;
+document.addEventListener('touchstart',e=>TX=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-TX;if(Math.abs(d)>40)go(d<0?1:-1);});
+
+// BULB ANIMATION
+const CV=document.getElementById('bc'),CTX=CV.getContext('2d');
+const IW=2752,IH=1536;
+const BL=[
+  {x:.127,y:.385,t:'b',s:4.1,p:.00},{x:.123,y:.529,t:'d',s:5.9,p:.44},
+  {x:.201,y:.477,t:'b',s:3.7,p:.28},{x:.237,y:.466,t:'f',s:4.9,p:.61},
+  {x:.323,y:.405,t:'b',s:5.2,p:.15},{x:.441,y:.408,t:'b',s:4.6,p:.72},
+  {x:.535,y:.425,t:'f',s:4.3,p:.33},{x:.705,y:.482,t:'b',s:3.9,p:.50},
+  {x:.789,y:.429,t:'b',s:5.1,p:.18},{x:.895,y:.427,t:'f',s:4.4,p:.81},
+];
+const FS={};
+BL.forEach((b,i)=>{if(b.t!=='f')return;FS[i]={on:false,v:null,dr:[],st:0};sched(i);});
+function sched(i){setTimeout(()=>fire(i),1500+Math.random()*2500);}
+function fire(i){
+  const s=FS[i],n=3+Math.floor(Math.random()*4);
+  s.dr=[];let o=0;
+  for(let j=0;j<n;j++){const sd=25+Math.random()*35,dd=60+Math.random()*90;
+    s.dr.push({a:o,d:sd,v:.95});o+=sd;
+    s.dr.push({a:o,d:dd,v:Math.random()*.025});o+=dd+30+Math.random()*60;}
+  s.on=true;s.st=performance.now();
+  setTimeout(()=>{s.on=false;s.v=null;sched(i);},o+100);
+}
+function fv(i,now){
+  const s=FS[i];if(!s||!s.on)return null;
+  const e=now-s.st;
+  for(const d of s.dr){if(e>=d.a&&e<d.a+d.d)return d.v;}
+  return null;
+}
+function resize(){CV.width=CV.offsetWidth;CV.height=CV.offsetHeight;}
+window.addEventListener('resize',resize);resize();
+function bulb(x,y,r,op){
+  const h=CTX.createRadialGradient(x,y,0,x,y,r*2.8);
+  h.addColorStop(0,`rgba(255,200,80,${(op*.40).toFixed(3)})`);
+  h.addColorStop(.45,`rgba(230,140,20,${(op*.18).toFixed(3)})`);
+  h.addColorStop(1,'rgba(180,80,0,0)');
+  CTX.fillStyle=h;CTX.beginPath();CTX.arc(x,y,r*2.8,0,Math.PI*2);CTX.fill();
+  const c=CTX.createRadialGradient(x,y,0,x,y,r);
+  c.addColorStop(0,`rgba(255,252,225,${op.toFixed(3)})`);
+  c.addColorStop(.25,`rgba(255,220,90,${(op*.90).toFixed(3)})`);
+  c.addColorStop(.65,`rgba(220,130,20,${(op*.55).toFixed(3)})`);
+  c.addColorStop(1,'rgba(180,80,0,0)');
+  CTX.fillStyle=c;CTX.beginPath();CTX.arc(x,y,r,0,Math.PI*2);CTX.fill();
+}
+function map(fx,fy,W,H){
+  const sc=Math.max(W/IW,H/IH),rw=IW*sc,rh=IH*sc,ox=(W-rw)/2,oy=(H-rh)/2;
+  return{x:ox+fx*rw,y:oy+fy*rh,r:34*sc};
+}
+function frame(ts){
+  const t=ts/1000,now=performance.now(),W=CV.width,H=CV.height;
+  CTX.clearRect(0,0,W,H);
+  CTX.globalCompositeOperation='screen';
+  BL.forEach((b,i)=>{
+    const p=map(b.x,b.y,W,H);
+    const raw=(Math.sin((t/b.s+b.p)*Math.PI*2)+1)/2;
+    const ceil=b.t==='d'?.22:.60,fl=b.t==='d'?.10:.28;
+    let op=fl+raw*(ceil-fl);
+    if(b.t==='f'){const v=fv(i,now);if(v!==null)op=v;}
+    bulb(p.x,p.y,p.r,op);
+  });
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
