@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gar Hole — Website Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ── PRINT + SCREEN ─────────────────────────── */
+:root {
+  --ink:       #1a1208;
+  --amber:     #b07820;
+  --amber-lt:  #c89030;
+  --rule:      #c8a860;
+  --muted:     #5a4830;
+  --bg:        #fdf6e8;
+  --bg-dark:   #1a1208;
+  --cream:     #f5ead0;
+  --white:     #fffdf5;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  font-family: 'Libre Baskerville', Georgia, serif;
+  color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── PAGE SHELL ─────────────────────────────── */
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0 auto;
+  padding: 0.55in 0.60in 0.50in;
+  background: var(--bg);
+  position: relative;
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 0.22in;
+  border-bottom: 2px solid var(--amber);
+  margin-bottom: 0.28in;
+}
+.header-left h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+.header-left p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.0rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-top: 0.06in;
+}
+.header-right {
+  text-align: right;
+}
+.header-right .label {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.04in;
+}
+.header-right .date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── SECTION HEADS ──────────────────────────── */
+.sec-head {
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.12in;
+  padding-bottom: 0.06in;
+  border-bottom: 1px solid rgba(180,140,60,0.25);
+}
+
+/* ── INTRO BLOCK ────────────────────────────── */
+.intro {
+  margin-bottom: 0.28in;
+}
+.intro p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.72;
+  color: var(--muted);
+  max-width: 6.5in;
+}
+
+/* ── TWO COLUMN LAYOUT ──────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35in;
+  margin-bottom: 0.28in;
+}
+
+/* ── DELIVERABLES LIST ──────────────────────── */
+.deliverables {
+  margin-bottom: 0.28in;
+}
+.del-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.06in 0.4in;
+}
+.del-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1in;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink);
+  padding: 0.05in 0;
+  border-bottom: 1px solid rgba(180,140,60,0.12);
+}
+.del-item::before {
+  content: '—';
+  color: var(--amber);
+  flex-shrink: 0;
+  font-size: 0.65rem;
+}
+
+/* ── FEE TABLE ──────────────────────────────── */
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.14in;
+}
+.fee-table tr {
+  border-bottom: 1px solid rgba(180,140,60,0.15);
+}
+.fee-table tr:last-child {
+  border-bottom: none;
+}
+.fee-table td {
+  padding: 0.09in 0.08in;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.fee-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.fee-table .trigger {
+  font-size: 0.64rem;
+  color: var(--muted);
+  font-style: italic;
+  display: block;
+  margin-top: 0.02in;
+}
+.fee-total {
+  background: var(--ink);
+  color: var(--white);
+}
+.fee-total td {
+  padding: 0.10in 0.08in;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.fee-total td:last-child {
+  color: #f5c842;
+  font-size: 1.08rem;
+}
+
+/* ── ONGOING TABLE ──────────────────────────── */
+.ongoing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.07in 0;
+  border-bottom: 1px solid rgba(180,140,60,0.12);
+  font-size: 0.76rem;
+}
+.ongoing-row:last-child { border-bottom: none; }
+.ongoing-row .amt {
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+}
+.ongoing-row .note {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-style: italic;
+  display: block;
+}
+
+/* ── ROI TABLE ──────────────────────────────── */
+.roi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 0;
+  margin-bottom: 0.10in;
+}
+.roi-cell {
+  padding: 0.09in 0.10in;
+  border: 1px solid rgba(180,140,60,0.18);
+  border-right: none;
+}
+.roi-cell:last-child { border-right: 1px solid rgba(180,140,60,0.18); }
+.roi-cell .rc-label {
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.03in;
+}
+.roi-cell .rc-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.roi-cell .rc-note {
+  font-size: 0.58rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.02in;
+}
+.roi-result {
+  background: var(--ink);
+  padding: 0.10in 0.12in;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.08in;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.roi-result .rr-label {
+  font-size: 0.60rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,200,66,0.60);
+}
+.roi-result .rr-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #f5c842;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.roi-result .rr-payoff {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(245,220,140,0.80);
+}
+.roi-footnote {
+  font-size: 0.58rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* ── TIMELINE ───────────────────────────────── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.18in;
+  margin-bottom: 0.28in;
+}
+.wk {
+  border-top: 2px solid var(--amber-lt);
+  padding-top: 0.10in;
+}
+.wk-num {
+  font-size: 0.56rem;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.04in;
+}
+.wk-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.90rem;
+  color: var(--ink);
+  margin-bottom: 0.05in;
+  line-height: 1.2;
+}
+.wk-desc {
+  font-size: 0.64rem;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+/* ── FOOTER ─────────────────────────────────── */
+.footer {
+  position: absolute;
+  bottom: 0.35in;
+  left: 0.60in;
+  right: 0.60in;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.12in;
+  border-top: 1px solid rgba(180,140,60,0.25);
+}
+.footer p {
+  font-size: 0.60rem;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+.footer .tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  color: var(--amber);
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+
+/* ── PRINT STYLES ───────────────────────────── */
+@media print {
+  body { background: white; }
+  .page {
+    width: 100%;
+    min-height: auto;
+    margin: 0;
+    padding: 0.5in 0.55in 0.45in;
+    box-shadow: none;
+  }
+  .footer { position: fixed; bottom: 0.3in; }
+}
+
+@media screen {
+  body { padding: 0.3in 0; }
+  .page {
+    box-shadow:
+      0 4px 6px rgba(0,0,0,0.07),
+      0 10px 40px rgba(0,0,0,0.12);
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>The Gar Hole</h1>
+      <p>106 W. Houston St. &nbsp;&middot;&nbsp; Westminster, TX &nbsp;&middot;&nbsp; Website Proposal</p>
+    </div>
+    <div class="header-right">
+      <div class="label">Prepared for</div>
+      <div class="date">Spider Webb &nbsp;&middot;&nbsp; 2026</div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="sec-head">The Opportunity</div>
+    <p>The Gar Hole is one of the most authentic music venues in North Texas. Its current website is a GoDaddy template with a blank tickets page and a PDF calendar. This proposal delivers a custom digital environment built from the real place &mdash; not a theme, not a template. A website that looks like the place.</p>
+  </div>
+
+  <!-- TWO COLUMN: FEE + ONGOING -->
+  <div class="two-col">
+
+    <!-- LEFT: PROJECT FEE -->
+    <div>
+      <div class="sec-head">Project Investment</div>
+      <table class="fee-table">
+        <tr>
+          <td>
+            Payment 1 &mdash; Kickoff
+            <span class="trigger">Project starts</span>
+          </td>
+          <td>$1,000</td>
+        </tr>
+        <tr>
+          <td>
+            Payment 2 &mdash; Milestone
+            <span class="trigger">Room built &middot; sign live &middot; admin working</span>
+          </td>
+          <td>$2,000</td>
+        </tr>
+        <tr>
+          <td>
+            Payment 3 &mdash; Launch
+            <span class="trigger">Site deployed &middot; GoDaddy retired</span>
+          </td>
+          <td>$1,000</td>
+        </tr>
+        <tr class="fee-total">
+          <td>Project Fee &mdash; Flat Rate</td>
+          <td>$4,000</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- RIGHT: ONGOING + TIMELINE SUMMARY -->
+    <div>
+      <div class="sec-head">After Launch</div>
+      <div class="ongoing-row">
+        <div>
+          Monthly Hosting
+          <span class="note">Fast, reliable &middot; no platform lock-in</span>
+        </div>
+        <div class="amt">$49 / mo</div>
+      </div>
+      <div class="ongoing-row">
+        <div>
+          Care &amp; Maintenance <em style="font-size:0.62rem;color:var(--muted);"> &mdash; optional</em>
+          <span class="note">Content updates, sign maintenance, minor changes</span>
+        </div>
+        <div class="amt">$150 / mo</div>
+      </div>
+
+      <div style="margin-top:0.20in;">
+        <div class="sec-head">Every Phase Requires Your Approval</div>
+        <p style="font-size:0.70rem;color:var(--muted);line-height:1.65;font-style:italic;">You see it before it&rsquo;s built. You confirm it before we move. Nothing advances without your sign-off.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELIVERABLES -->
+  <div class="deliverables">
+    <div class="sec-head">What&rsquo;s Included</div>
+    <div class="del-grid">
+      <div class="del-item">Environmental design system &mdash; built from real photographs</div>
+      <div class="del-item">Animated marquee sign component &mdash; live event data</div>
+      <div class="del-item">5 core pages &mdash; Home, Events, Menu, About, Gallery</div>
+      <div class="del-item">Live events database &mdash; Supabase</div>
+      <div class="del-item">Admin panel &mdash; update band names from your phone</div>
+      <div class="del-item">Ticketing integration &mdash; connected to your store</div>
+      <div class="del-item">All visual assets &mdash; production ready</div>
+      <div class="del-item">Hosting setup &amp; deployment</div>
+    </div>
+  </div>
+
+  <!-- ROI -->
+  <div style="margin-bottom:0.28in;">
+    <div class="sec-head">What It Takes To Pay For Itself</div>
+    <div class="roi-grid">
+      <div class="roi-cell">
+        <div class="rc-label">Tickets</div>
+        <div class="rc-val">$375</div>
+        <div class="rc-note">$15 avg &times; 25 new buyers / mo</div>
+      </div>
+      <div class="roi-cell">
+        <div class="rc-label">Bar Tabs</div>
+        <div class="rc-val">$875</div>
+        <div class="rc-note">$35 avg &times; 25 new customers / mo</div>
+      </div>
+      <div class="roi-cell">
+        <div class="rc-label">Apparel</div>
+        <div class="rc-val">$310</div>
+        <div class="rc-note">$31 blended avg &times; 10 online sales / mo</div>
+      </div>
+      <div class="roi-cell">
+        <div class="rc-label">Total / Month</div>
+        <div class="rc-val">$1,560</div>
+        <div class="rc-note">Combined monthly return</div>
+      </div>
+    </div>
+    <div class="roi-result">
+      <div>
+        <div class="rr-label">25 new customers per month returns</div>
+        <div class="rr-val">$1,560 / month</div>
+      </div>
+      <div class="rr-payoff">Project paid off in under 3 months</div>
+    </div>
+    <div class="roi-footnote">* Based on 25 incremental ticket buyers/month who could not purchase on the current blank tickets page. Bar tab avg $35. 10 online apparel sales/month at blended avg $31 (hats $25 &middot; tees $25 &middot; hoodies $40 &middot; long sleeve $35). Conservative estimates.</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="sec-head">4-Week Build</div>
+  <div class="timeline">
+    <div class="wk">
+      <div class="wk-num">Week 1</div>
+      <div class="wk-name">The Room</div>
+      <div class="wk-desc">Base environment built from real photographs. Color palette, walls, ceiling, string lights. Your approval before we proceed.</div>
+    </div>
+    <div class="wk">
+      <div class="wk-num">Week 2</div>
+      <div class="wk-name">The Sign</div>
+      <div class="wk-desc">Marquee sign built and animated. Database wired. Admin panel live &mdash; update band names from your phone.</div>
+    </div>
+    <div class="wk">
+      <div class="wk-num">Week 3</div>
+      <div class="wk-name">The Rooms Fill In</div>
+      <div class="wk-desc">All 5 pages built. Navigation as movement through space. The vault in the hallway. Everything in its place.</div>
+    </div>
+    <div class="wk">
+      <div class="wk-num">Week 4</div>
+      <div class="wk-name">The Doors Open</div>
+      <div class="wk-desc">Mobile testing, your sign-off, deployment. The GoDaddy site retires. One update from your phone &mdash; the sign changes.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>The Gar Hole &nbsp;&middot;&nbsp; 106 W. Houston St., Westminster TX &nbsp;&middot;&nbsp; Website Proposal 2026</p>
+    <div class="tagline">You built something real. Let&rsquo;s put it online.</div>
+  </div>
+
+</div>
+</body>
+</html>
